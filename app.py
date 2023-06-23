@@ -20,31 +20,48 @@ def main():
 
     # Read the contents of the uploaded file
     if uploaded_file:
-        #file_contents = uploaded_file.read().decode("utf-8")
+        file_contents = uploaded_file.read().decode("utf-8")
         
         # split into chunks
-        # text_splitter = CharacterTextSplitter(
-        #     separator='\n',
-        #     chunk_size=1500,
-        #     chunk_overlap=200,
-        #     length_function=len
-        # )
-        #chunks = text_splitter.split_text(file_contents)
+        text_splitter = CharacterTextSplitter(
+            separator='\n',
+            chunk_size=1500,
+            chunk_overlap=200,
+            length_function=len
+        )
+        chunks = text_splitter.split_text(file_contents)
 
         # create embeddings
-        # embeddings = OpenAIEmbeddings()
-        # knowledge_base = FAISS.from_texts(chunks, embeddings)
-        # with open("embeddings.pkl", "wb") as file:
-        #     pickle.dump(embeddings, file) 
-        # with open("knowledge_base.pkl", "wb") as file:
-        #     pickle.dump(knowledge_base, file)
-        # Load embeddings
-        with open(f"{path}/embeddings.pkl", "rb") as file:
-            embeddings = pickle.load(file)
+        embeddings = OpenAIEmbeddings()
+        knowledge_base = FAISS.from_texts(chunks, embeddings)
+        with open("embeddings.pkl", "wb") as file:
+            pickle.dump(embeddings, file)
 
-        # Load knowledge base
-        with open(f"{path}/knowledge_base.pkl", "rb") as file:
-            knowledge_base = pickle.load(file)
+        with open("embeddings.pkl", "rb") as file:
+            st.download_button(
+                label="Download embeddings",
+                data=file,
+                file_name="embeddings.pkl",
+                mime="text/plain"
+            )
+
+        with open("knowledge_base.pkl", "wb") as file:
+            pickle.dump(knowledge_base, file)
+
+        with open("knowledge_base.pkl", "rb") as file:
+            st.download_button(
+                label="Download knowledge_base",
+                data=file,
+                file_name="knowledge_base.pkl",
+                mime="text/plain"
+            )
+        # Load embeddings
+        # with open(f"{path}/embeddings.pkl", "rb") as file:
+        #     embeddings = pickle.load(file)
+
+        # # Load knowledge base
+        # with open(f"{path}/knowledge_base.pkl", "rb") as file:
+        #     knowledge_base = pickle.load(file)
 
         # show user input
         user_question = st.text_input('Keywords:')
