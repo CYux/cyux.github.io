@@ -16,10 +16,11 @@ def main():
     st.header('GE semantic search 💬')
     
     # File uploader widget
-    uploaded_file = st.file_uploader("Upload your text file.", type=["txt"])
+    selected = option_menu("Books", ["Romola", 'Others'])
+    # File uploader widget
 
     # Read the contents of the uploaded file
-    if uploaded_file:
+    if selected:
         # file_contents = uploaded_file.read().decode("utf-8")
         
         # # split into chunks
