@@ -1,5 +1,6 @@
 from dotenv import load_dotenv
 import streamlit as st
+from streamlit_option_menu import option_menu
 from langchain.text_splitter import CharacterTextSplitter
 from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.vectorstores import FAISS
