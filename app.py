@@ -17,7 +17,8 @@ def main():
     st.header('GE semantic search 💬')
     
     # File uploader widget
-    selected = option_menu("Books", ["Romola", 'Others'])
+    selected = option_menu("Books", ["Romola", 'Middlemarch', 'The Mill on the Floss', 'Daniel Deronda', 
+'Impressions of Theophrastus Such', 'Adam Bede', 'Scenes of Clerical Life', 'Silas Marner', 'Felix Holt, the Radical'])
     # File uploader widget
 
     # Read the contents of the uploaded file
@@ -58,11 +59,11 @@ def main():
         #         mime="text/plain"
         #     )
         # Load embeddings
-        with open(f"{path}/embeddings.pkl", "rb") as file:
+        with open(f"{path}/{selected}_embeddings.pkl", "rb") as file:
             embeddings = pickle.load(file)
 
         # Load knowledge base
-        with open(f"{path}/knowledge_base.pkl", "rb") as file:
+        with open(f"{path}/{selected}_knowledge_base.pkl", "rb") as file:
             knowledge_base = pickle.load(file)
 
         # show user input
